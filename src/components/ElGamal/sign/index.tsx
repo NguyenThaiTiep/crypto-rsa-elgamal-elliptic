@@ -154,71 +154,79 @@ const SignElGamal = () => {
           </div>
         </div>
       </div>
-      <div className="box">
+      {IsValid && (
         <>
-          <h4> Sinh khóa</h4>
-          <div className="genarate-key-rsa">
-            <Divider />
-            <div className="item">
-              <div className="label text-bold">
-                <TemplateKatex
-                  element={"$\\beta = \\alpha^{a} \\pmod{p} : $"}
-                />
-              </div>
-              <div className="value">{beta}</div>
-            </div>
-            <Divider />
-            <div className="item">
-              <div className="label text-bold">
-                <TemplateKatex element={`$ K' = (a) = (${elGamalType.a}) $`} />
-              </div>
-            </div>
-            <Divider />
-            <div className="item">
-              <div className="label text-bold">
-                <TemplateKatex element={`$ K'' = (p, \\alpha, \\beta) : $`} />
-              </div>
-              <div className="value">
-                {`(${elGamalType.p} , ${elGamalType.α} , ${beta})`}
-              </div>
-            </div>
+          <div className="box">
+            <>
+              <h4> Sinh khóa</h4>
+              <div className="genarate-key-rsa">
+                <Divider />
+                <div className="item">
+                  <div className="label text-bold">
+                    <TemplateKatex
+                      element={"$\\beta = \\alpha^{a} \\pmod{p} : $"}
+                    />
+                  </div>
+                  <div className="value">{beta}</div>
+                </div>
+                <Divider />
+                <div className="item">
+                  <div className="label text-bold">
+                    <TemplateKatex
+                      element={`$ K' = (a) = (${elGamalType.a}) $`}
+                    />
+                  </div>
+                </div>
+                <Divider />
+                <div className="item">
+                  <div className="label text-bold">
+                    <TemplateKatex
+                      element={`$ K'' = (p, \\alpha, \\beta) : $`}
+                    />
+                  </div>
+                  <div className="value">
+                    {`(${elGamalType.p} , ${elGamalType.α} , ${beta})`}
+                  </div>
+                </div>
 
-            <Divider />
+                <Divider />
+              </div>
+            </>
+          </div>
+          <div className="input box">
+            <div className="genarate-key-rsa">
+              <h4> Ký trên bản rõ x = {elGamalType.x}</h4>
+              <Divider />
+              <div className="item">
+                <div className="label">
+                  <TemplateKatex
+                    element={`$\\gamma = \\alpha^{k} \\pmod{m} :  $`}
+                  />
+                </div>{" "}
+                <div className="value">{gamma}</div>
+              </div>
+              <Divider />
+              <div className="item">
+                <div className="label">
+                  <TemplateKatex
+                    element={`$\\delta = (x - a*\\gamma) * k ^ {-1} \\pmod{(p - 1)} :  $`}
+                  />
+                </div>
+                <div className="value">{delta}</div>
+              </div>
+              <Divider />
+              <div className="item">
+                <div className="label">
+                  <TemplateKatex
+                    element={`$(s_1, s_2) = (\\gamma, \\delta) :  $`}
+                  />
+                </div>
+                <div className="value">{`(${gamma} , ${delta})`}</div>
+              </div>
+            </div>
           </div>
         </>
-      </div>
-      <div className="input box">
-        <div className="genarate-key-rsa">
-          <h4> Ký trên bản rõ x = {elGamalType.x}</h4>
-          <Divider />
-          <div className="item">
-            <div className="label">
-              <TemplateKatex
-                element={`$\\gamma = \\alpha^{k} \\pmod{m} :  $`}
-              />
-            </div>{" "}
-            <div className="value">{gamma}</div>
-          </div>
-          <Divider />
-          <div className="item">
-            <div className="label">
-              <TemplateKatex
-                element={`$\\delta = (x - a*\\gamma) * k ^ {-1} \\pmod{(p - 1)} :  $`}
-              />
-            </div>
-            <div className="value">{delta}</div>
-          </div>
-          <Divider />
-          <div className="item">
-            <div className="label">
-              <TemplateKatex
-                element={`$(s_1, s_2) = (\\gamma, \\delta) :  $`}
-              />
-            </div>
-            <div className="value">{`(${gamma} , ${delta})`}</div>
-          </div>
-        </div>
-      </div>
+      )}
     </div>
   );
 };

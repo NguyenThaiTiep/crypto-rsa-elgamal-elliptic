@@ -153,7 +153,7 @@ const BuildCriptoElGamal = () => {
           </div>
         </div>
       </div>
-      {true && (
+      {IsValid && (
         <>
           <div className="input box">
             <GenarateKeyElGamal {...{ ...elGamalType, beta }} />
