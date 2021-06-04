@@ -36,6 +36,8 @@
     "audit": "0.0.6",
     "awesome-react-icons": "^1.4.4",
     "axios": "^0.21.0",
+    "big-integer": "^1.6.48",
+    "bignumber.js": "^9.0.1",
     "bootstrap": "^4.6.0",
     "chart.js": "^2.9.3",
     "ckeditor": "^4.12.1",

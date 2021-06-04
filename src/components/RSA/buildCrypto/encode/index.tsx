@@ -3,21 +3,25 @@ import React, { useState } from "react";
 import { TemplateKatex } from "../../../../containers/markdown";
 import InputContainer from "../../../form-input/inputContainer";
 import "./style.scss";
-const EncodeRSA = () => {
+interface EncodeInput {
+  x?: any;
+  y?: any;
+}
+const EncodeRSA = (props: EncodeInput) => {
+  const { x, y } = props;
   return (
-    <div className="encode-rsa">
-      <h4>Mã hóa bản rõ x = 123456789</h4> <Divider />
-      <div className="item">
-        <div className="label text-bold">
-          <h6>
+    <>
+      <h4>Mã hóa bản rõ x = {x || 0}</h4>
+      <div className="encode-rsa">
+        <Divider />
+        <div className="item">
+          <div className="label text-bold">
             <TemplateKatex element={"$y = e^{-1} \\pmod{\\phi(n)} : $"} />
-          </h6>
-        </div>
-        <div className="value">
-          2880638243552980504597330769729883384263311159267042975252390342662841533981892534924690944372937744385038594018508366387321341825895367385768285250966849
+          </div>
+          <div className="value">{y}</div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

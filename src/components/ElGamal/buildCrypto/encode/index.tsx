@@ -3,23 +3,34 @@ import React, { useState } from "react";
 import { TemplateKatex } from "../../../../containers/markdown";
 import InputContainer from "../../../form-input/inputContainer";
 import "./style.scss";
-const EncodeElGamal = () => {
+interface Props {
+  α?: any;
+  a?: any;
+  k?: any;
+  e?: any;
+  x?: any;
+  p?: any;
+  beta?: any;
+  gama?: any;
+  delta?: any;
+}
+
+const EncodeElGamal = (props: Props) => {
+  const { x, a, k, p, delta, beta, gama } = props;
   return (
     <div className="encode-rsa">
-      <h4>Mã hóa bản rõ x = 2035</h4> <Divider />
+      <h4>Mã hóa bản rõ x = {x}</h4> <Divider />
       <div className="item">
         <div className="label text-bold">
           <TemplateKatex
-            element={"$γ = a^k \\pmod{p} = 1751^{1523} \\pmod{2357} = 2012$"}
+            element={`$γ = a^k \\pmod{p} = ${a}^{${k}} \\pmod{${p}} = ${gama}$`}
           />
         </div>
       </div>
       <div className="item">
         <div className="label text-bold">
           <TemplateKatex
-            element={
-              "$δ = x * β^{k} \\pmod{p} = 2035 * 1185^{1523} \\pmod{2357} = 202$"
-            }
+            element={`$δ = x * β^{k} \\pmod{p} = ${x} * ${beta}^{${k}} \\pmod{${p}} = ${delta}$`}
           />
         </div>
       </div>

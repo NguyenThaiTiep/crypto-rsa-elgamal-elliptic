@@ -1,6 +1,6 @@
 import React from "react";
 import { Scatter } from "react-chartjs-2";
-
+import "./style.scss";
 const options = {
   scales: {
     yAxes: [
@@ -16,7 +16,7 @@ const options = {
 const ChartElliptic = (props: { data: any }) => {
   const { data } = props;
   return (
-    <div>
+    <div className="chart-dot">
       <Scatter data={data} options={options} />
     </div>
   );

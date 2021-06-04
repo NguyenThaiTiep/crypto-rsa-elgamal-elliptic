@@ -1,1 +1,14 @@
 @import "~bootstrap/scss/bootstrap";
+@media screen and (max-width: 600px) {
+  .makeStyles-contentContainer-3 {
+    padding-top: 0 !important;
+  }
+  .MuiBox-root-26 {
+    padding: 0 !important;
+  }
+  button.MuiButtonBase-root.MuiButton-root.MuiButton-outlined {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+  }
+}

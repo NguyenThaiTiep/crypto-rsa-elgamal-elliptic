@@ -4,14 +4,17 @@ import { TemplateKatex } from "../../../../containers/markdown";
 import { TableConvert, TableData } from "../../../common/table";
 import "./style.scss";
 interface Props {
-  x: number;
-  p: number;
-  q: number;
-  e: number;
+  α?: any;
+  a?: any;
+  k?: any;
+  e?: any;
+  x?: any;
+  p?: any;
+  beta?: any;
 }
 
 const GenarateKeyElGamal = (props: Props) => {
-  const { x, p, q, e } = props;
+  const { x, a, k, e, α, p, beta } = props;
   const getN = () => {};
   return (
     <div className="genarate-key-rsa">
@@ -19,19 +22,21 @@ const GenarateKeyElGamal = (props: Props) => {
       <Divider />
       <div className="item">
         <div className="label">
-          <TemplateKatex element={"$\\beta = \\alpha^{a} \\mod{p} = 1185  $"} />
+          <TemplateKatex
+            element={`$\\beta = \\alpha^{a} \\mod{p} = ${beta} $`}
+          />
         </div>
       </div>
 
       <div className="item">
         <div className="label text-bold">
-          <TemplateKatex element={"$(p,α,β) =  (2357,2,1185) $"} />
+          <TemplateKatex element={`$(p,α,β) = (${p}, ${α}, ${beta}) $`} />
         </div>
       </div>
 
       <div className="item">
         <div className="label text-bold">
-          <TemplateKatex element={"$  (a) = (1751) $"} />
+          <TemplateKatex element={`$  (a) = (${a}) $`} />
         </div>
       </div>
     </div>

@@ -10,7 +10,7 @@ const DotList = (props: DotProp) => {
   return (
     <div className="dot-list">
       <div className="genarate-key-rsa">
-        <h4> Các điểm trên E999(4,2) là điểm vô cực O và các điểm sau</h4>
+        <h4> Các điểm trên E43(4,2) là điểm vô cực O và các điểm sau</h4>
         <Divider />
         {data.map((i) => (
           <DotItem {...i} />
