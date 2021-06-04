@@ -1,0 +1,32 @@
+.table-custom {
+  --bs-table-bg: transparent;
+  --bs-table-accent-bg: transparent;
+  --bs-table-striped-color: #212529;
+  --bs-table-striped-bg: rgba(0, 0, 0, 0.05);
+  --bs-table-active-color: #212529;
+  --bs-table-active-bg: rgba(0, 0, 0, 0.1);
+  --bs-table-hover-color: #212529;
+  --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
+  margin-bottom: 1rem;
+  width: 100%;
+  border-color: #dee2e6;
+  text-align: center;
+  vertical-align: middle;
+}
+td {
+  word-break: break-all;
+}
+
+.table-render {
+  padding: 3px 5px;
+}
+@for $i from 1 through 1900 {
+  @media screen and (max-width: $i + "px") {
+    .table-render-#{$i} {
+      width: 100% !important;
+    }
+    .td-render-#{$i} {
+      width: 100% !important;
+    }
+  }
+}
