@@ -36,7 +36,7 @@ const BuildCriptoElGamal = () => {
   };
   const demo = () => {
     setstate({
-      p: "2357",
+      p: "72123325254581672626176125162734766156045554514105133573263758251347324533769",
       x: "2035",
       k: "1523",
       a: "1751",
@@ -57,7 +57,11 @@ const BuildCriptoElGamal = () => {
       return;
     }
     try {
-      setDelta(bigInt(beta).modPow(k, p).multiply(x).mod(p).toString());
+      setDelta(
+        bigInt(bigInt(beta).modPow(k, p).multiply(bigInt(x).mod(p)))
+          .mod(p)
+          .toString()
+      );
     } catch (error) {
       console.log(error);
     }
@@ -65,33 +69,33 @@ const BuildCriptoElGamal = () => {
   useEffect(() => {
     const { α, a, p, k } = elGamalType;
     if (α > 0 && a > 0 && p) {
-      setBeta(bigInt(α).modPow(a, p).toString());
-      setGamma(bigInt(α).modPow(k, p).toString());
+      setBeta(bigInt(α).modPow(bigInt(a), bigInt(p)).toString());
+      setGamma(bigInt(α).modPow(bigInt(k), bigInt(p)).toString());
     }
   }, [elGamalType]);
   const inputValues = [
     {
       label: "p",
       onChange: setValue("p"),
-      placeholder: "Nhập số nguyên tố p",
+      placeholder: "Nhập số nguyên tố p (độ dài khoảng 256 bits)",
       type: "number",
     },
     {
       label: "x",
       onChange: setValue("x"),
-      placeholder: "Nhập bản rõ x ( 0 < x < p - 1) ",
+      placeholder: "Nhập bản rõ x ( 0 < x < p ) ",
       type: "number",
     },
     {
       label: "a",
       onChange: setValue("a"),
-      placeholder: "Nhập số a",
+      placeholder: "Nhập số a ",
       type: "number",
     },
     {
       label: "k",
       onChange: setValue("k"),
-      placeholder: "Nhập số k",
+      placeholder: "Nhập số k  ( 0 < x < p - 1 ) ",
       type: "number",
     },
     {

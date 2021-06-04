@@ -23,7 +23,7 @@ const DeCodeElGamal = (props: Props) => {
     if (gama > 0 && p > 0 && p - a - 1 > 0) {
       setgamalValue(
         bigInt(gama)
-          .modPow(p - a - 1, p)
+          .modPow(bigInt(p).minus(bigInt(a)).minus(1), bigInt(p))
           .toString()
       );
     }
@@ -32,9 +32,7 @@ const DeCodeElGamal = (props: Props) => {
     if (gamalValue && delta > 0) {
       try {
         setXValue(
-          bigInt(gamalValue * delta)
-            .mod(p)
-            .toString()
+          bigInt(gamalValue).multiply(bigInt(delta)).mod(bigInt(p)).toString()
         );
       } catch (e) {
         console.log(e);

@@ -10,65 +10,21 @@ import "./style.scss";
 export interface EllipticType {
   a?: any;
   b?: any;
-  r?: any;
+  p?: any;
 }
-//y^2 = x3 + ax + b
-const rand = () => Math.round(Math.random() * 100);
-/**(3,16)	(3,27)	(9,6)	(9,37)	(10,15)	(10,28)	(11,1)	(11,42)	(12,12)	(12,31)	(13,12)	(13,31)	(15,13)	(15,30)	(17,9)	(17,34)	(18,12)	(18,31)	(19,10)	(19,33)	(20,16)
-(21,4)	(21,39)	(22,17)	(22,26)	(23,7)	(23,36)	(26,3)	(26,40)	(27,20)	(27,23)	(29,13)	(29,30)	(34,21)	(34,22)	(35,19)	(35,24)	(40,7)	(40,36)	(42,13)	(42,30) */
-// const dataDots = [
-//   { x: 3, y: 16 },
-//   { x: 3, y: 27 },
-//   { x: 9, y: 6 },
-//   { x: 9, y: 37 },
-//   { x: 10, y: 15 },
-//   { x: 10, y: 28 },
-//   { x: 11, y: 1 },
-//   { x: 11, y: 42 },
-//   { x: 12, y: 12 },
-//   { x: 12, y: 31 },
-//   { x: 13, y: 31 },
-//   { x: 15, y: 13 },
-//   { x: 13, y: 30 },
-//   { x: 17, y: 9 },
-//   { x: 17, y: 34 },
-//   { x: 18, y: 12 },
-//   { x: 18, y: 31 },
-//   { x: 19, y: 10 },
-//   { x: 19, y: 33 },
-//   { x: 21, y: 4 },
-//   { x: 21, y: 39 },
-//   { x: 22, y: 17 },
-//   { x: 22, y: 26 },
-//   { x: 23, y: 7 },
-//   { x: 23, y: 36 },
-//   { x: 26, y: 3 },
-//   { x: 26, y: 40 },
-//   { x: 27, y: 20 },
-//   { x: 29, y: 13 },
-//   { x: 29, y: 30 },
-//   { x: 34, y: 21 },
-//   { x: 34, y: 22 },
-//   { x: 35, y: 19 },
-//   { x: 35, y: 24 },
-//   { x: 40, y: 7 },
-//   { x: 42, y: 13 },
-//   { x: 42, y: 30 },
-// ];
 
 const EllipticBuild = () => {
   const [ellipticType, setstate] = useState({
     a: "",
     b: "",
-    r: "",
+    p: "",
   } as EllipticType);
   const [dataDots, setDataDots] = useState([]);
   const [Q, setQ] = useState([]);
   const [powY, setPowY] = useState([]);
   useEffect(() => {
-    const { a, b, r } = ellipticType;
-    let q = getQ(ellipticType.r);
-    console.log(q);
+    const { a, b, p } = ellipticType;
+    let q = getQ(ellipticType.p);
 
     setQ(q as any);
   }, [ellipticType]);
@@ -77,31 +33,30 @@ const EllipticBuild = () => {
     setIsValid(false);
   };
   useEffect(() => {
-    const { a, b, r } = ellipticType;
-    let powY = getPowY(r, a, b, Q);
+    const { a, b, p } = ellipticType;
 
-    setPowY(powY as any);
+    setPowY(getPowY(p, a, b, Q) as any);
   }, [ellipticType, Q]);
   useEffect(() => {
-    const { a, b, r } = ellipticType;
-    let dataDots = getPoints(powY as any);
+    const { a, b, p } = ellipticType;
 
-    setDataDots(dataDots as any);
+    setDataDots(getPoints(powY as any) as any);
   }, [powY]);
 
   const demo = () => {
     setstate({
-      a: "1",
-      b: "1",
-      r: "23",
+      a: "4",
+      b: "2",
+      p: "619",
     });
   };
   const [IsValid, setIsValid] = useState(false);
-  const getValue = (label: "a" | "b" | "r") => {
+  const getValue = (label: "a" | "b" | "p") => {
     return ellipticType[label];
   };
 
   const setValue = (label?: any) => (value: any) => {
+    value = Math.min(2281, value);
     setstate({ ...ellipticType, [label]: value });
     setIsValid(false);
   };
@@ -123,9 +78,9 @@ const EllipticBuild = () => {
     },
 
     {
-      label: "r",
-      onChange: setValue("r"),
-      placeholder: "Nhập số nguyên tố r",
+      label: "p",
+      onChange: setValue("p"),
+      placeholder: "Nhập số nguyên tố p (độ dài khoảng 160 bit) ",
       type: "number",
     },
   ] as InputItem[];

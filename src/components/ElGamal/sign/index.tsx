@@ -17,72 +17,48 @@ export interface ElGamalType {
 
 const SignElGamal = () => {
   const [elGamalType, setstate] = useState({} as ElGamalType);
-  const [s1, setS1] = useState<any>();
-  const [s2, setS2] = useState<any>();
+
   const getValue = (label: "x" | "p" | "k" | "a" | "α") => {
     return elGamalType[label];
   };
-  const [ed, setED] = useState<any>();
-  const [ed2, setED2] = useState<any>();
+  const [beta, setBeta] = useState("");
+  const [gamma, setGamma] = useState("");
+  const [delta, setDelta] = useState("");
   const [IsValid, setIsValid] = useState(false);
   const setValue = (label?: any) => (value: any) => {
     setstate({ ...elGamalType, [label]: value });
     setIsValid(false);
   };
   useEffect(() => {
-    if (!(elGamalType.α && elGamalType.k && elGamalType.p)) {
-      return;
-    }
-    try {
-      const { x, a, p, k, α } = elGamalType;
-      if (α > 0 && k > 0 && p > 0)
-        setS1(
-          bigInt(elGamalType.α).modPow(elGamalType.k, elGamalType.p).toString()
-        );
-      if (!(k && p)) {
-        return;
+    const { α, a, p, k } = elGamalType;
+    if (α && a && p && k) {
+      try {
+        setBeta(bigInt(α).modPow(bigInt(a), bigInt(p)).toString());
+        setGamma(bigInt(α).modPow(bigInt(k), bigInt(p)).toString());
+      } catch (e) {
+        console.log(e);
       }
-      setED(
-        bigInt(k)
-          .modInv(p - 1)
-          .toString()
-      );
-    } catch (error) {}
+    }
   }, [elGamalType]);
   useEffect(() => {
-    const { x, a, p } = elGamalType;
-    if (!(x && a && s1 && p)) {
-      return;
+    const { α, a, p, k, x } = elGamalType;
+    if (α && a && p && k) {
+      try {
+        setDelta(
+          bigInt(x)
+            .minus(bigInt(a).multiply(bigInt(gamma)))
+            .multiply(bigInt(k).modInv(bigInt(p).minus(1)))
+            .mod(bigInt(p).minus(1))
+            .toString()
+        );
+      } catch (e) {
+        console.log(e);
+      }
     }
-    try {
-      setED2(mod(x - a * s1, p - 1).toString());
-    } catch (error) {}
-    if (!(x && a && s1 && p)) {
-      return;
-    }
-    try {
-      setED2(mod(x - a * s1, p - 1).toString());
-    } catch (error) {}
-  }, [elGamalType, s1]);
-  useEffect(() => {
-    const { x, a, p, k } = elGamalType;
-    if (!(ed2 && k && p)) {
-      return;
-    }
-    try {
-      setS2(
-        bigInt(k)
-          .modInv(p - 1)
-          .multiply(ed2)
-          .mod(p - 1)
-          .toString()
-      );
-    } catch (error) {}
-  }, [ed2, elGamalType]);
-
+  }, [gamma, elGamalType]);
   const demo = () => {
     setstate({
-      p: "2357",
+      p: "72123325254581672626176125162734766156045554514105133573263758251347324533769",
       x: "2035",
       k: "1523",
       a: "1751",
@@ -120,7 +96,7 @@ const SignElGamal = () => {
     {
       label: "p",
       onChange: setValue("p"),
-      placeholder: "Nhập số nguyên tố p",
+      placeholder: "Nhập số nguyên tố p (độ dài khoàng 256 bits",
       type: "number",
     },
     {
@@ -178,6 +154,39 @@ const SignElGamal = () => {
           </div>
         </div>
       </div>
+      <div className="box">
+        <>
+          <h4> Sinh khóa</h4>
+          <div className="genarate-key-rsa">
+            <Divider />
+            <div className="item">
+              <div className="label text-bold">
+                <TemplateKatex
+                  element={"$\\beta = \\alpha^{a} \\pmod{p} : $"}
+                />
+              </div>
+              <div className="value">{beta}</div>
+            </div>
+            <Divider />
+            <div className="item">
+              <div className="label text-bold">
+                <TemplateKatex element={`$ K' = (a) = (${elGamalType.a}) $`} />
+              </div>
+            </div>
+            <Divider />
+            <div className="item">
+              <div className="label text-bold">
+                <TemplateKatex element={`$ K'' = (p, \\alpha, \\beta) : $`} />
+              </div>
+              <div className="value">
+                {`(${elGamalType.p} , ${elGamalType.α} , ${beta})`}
+              </div>
+            </div>
+
+            <Divider />
+          </div>
+        </>
+      </div>
       <div className="input box">
         <div className="genarate-key-rsa">
           <h4> Ký trên bản rõ x = {elGamalType.x}</h4>
@@ -185,9 +194,28 @@ const SignElGamal = () => {
           <div className="item">
             <div className="label">
               <TemplateKatex
-                element={`$(s1,s2) =(\\alpha^k \\pmod p, (x - a * s_{1}) * (k ^{-1}) = (${s1} , ${s2})  $`}
+                element={`$\\gamma = \\alpha^{k} \\pmod{m} :  $`}
+              />
+            </div>{" "}
+            <div className="value">{gamma}</div>
+          </div>
+          <Divider />
+          <div className="item">
+            <div className="label">
+              <TemplateKatex
+                element={`$\\delta = (x - a*\\gamma) * k ^ {-1} \\pmod{(p - 1)} :  $`}
               />
             </div>
+            <div className="value">{delta}</div>
+          </div>
+          <Divider />
+          <div className="item">
+            <div className="label">
+              <TemplateKatex
+                element={`$(s_1, s_2) = (\\gamma, \\delta) :  $`}
+              />
+            </div>
+            <div className="value">{`(${gamma} , ${delta})`}</div>
           </div>
         </div>
       </div>

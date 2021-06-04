@@ -38,9 +38,9 @@ const BuildCriptoRSA = () => {
   };
   const demo = () => {
     setstate({
-      x: "123456789",
-      p: "60189309855228152582080418108842142489913101192853892029893420328887351871793",
-      q: "74714197566136059701452833471216875182865235128709397697022189913844351225357",
+      x: "123412412456789",
+      p: "186062864985921495060024628097672313218174457244746265290277413813402544027127",
+      q: "211258915725672981641571789672009335406057206489563616119756939542322825326683",
       e: "65537",
     });
     setIsValid(true);
@@ -105,36 +105,40 @@ const BuildCriptoRSA = () => {
       type: "number",
       validator: (value: any) => {
         setGCD(gcd(m, value));
-        return gcd(m, value) === 1;
+        return (
+          value &&
+          bigInt(gcd(m, value)).mod(rsaType.p).equals(bigInt(1).mod(rsaType.p))
+        );
       },
       message: "Không đồng dư với 1",
     },
   ] as InputItem[];
   useEffect(() => {
     const { p, q, e } = rsaType;
-
-    setN(new BigNumber(p || 0).multipliedBy(q || 0).toFixed());
-    setM(
-      new BigNumber(new BigNumber(p || 0).minus(1))
-        .multipliedBy(new BigNumber(q || 0).minus(1))
-        .toFixed()
-    );
-  }, [rsaType]);
-  useEffect(() => {
-    if (rsaType.e) {
-      setD(
-        bigInt(rsaType.e || 0)
-          .modInv(m || 1)
-          .toString()
+    if (p && q) {
+      setN(new BigNumber(p).multipliedBy(q || 0).toFixed());
+      setM(
+        new BigNumber(new BigNumber(p || 0).minus(1))
+          .multipliedBy(new BigNumber(q || 0).minus(1))
+          .toFixed()
       );
     }
-  }, [m]);
+  }, [rsaType]);
+  useEffect(() => {
+    if (rsaType.e > 1 && m) {
+      try {
+        setD(bigInt(rsaType.e).modInv(bigInt(m)).toString());
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }, [m, rsaType]);
   useEffect(() => {
     const { x, e } = rsaType;
     if (e && n != 0) {
       setY(bigInt(x).modPow(e, n).toString());
     }
-  }, [n]);
+  }, [n, rsaType]);
 
   return (
     <div className="rsa">
@@ -176,7 +180,7 @@ const BuildCriptoRSA = () => {
           </div>
         </div>
       </div>
-      {IsValid && (
+      {true && (
         <>
           <div className="input box">
             <GenarateKeyRSA {...{ ...rsaType, m, n, d }} />

@@ -16,14 +16,14 @@ interface Props {
 }
 
 const EncodeElGamal = (props: Props) => {
-  const { x, a, k, p, delta, beta, gama } = props;
+  const { x, a, k, p, delta, beta, gama, α } = props;
   return (
     <div className="encode-rsa">
       <h4>Mã hóa bản rõ x = {x}</h4> <Divider />
       <div className="item">
         <div className="label text-bold">
           <TemplateKatex
-            element={`$γ = a^k \\pmod{p} = ${a}^{${k}} \\pmod{${p}} = ${gama}$`}
+            element={`$γ = \\alpha^k \\pmod{p} = ${α}^{${k}} \\pmod{${p}} = ${gama}$`}
           />
         </div>
       </div>

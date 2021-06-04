@@ -10,7 +10,7 @@ import InputRSA, { InputItem } from "../buildCrypto/input";
 import "./style.scss";
 export interface RSAType {
   x?: any;
-  e?: any;
+  d?: any;
   s?: any;
   n?: any;
 }
@@ -18,14 +18,15 @@ export interface RSAType {
 const CheckSignRSA = () => {
   const [rsaType, setstate] = useState({
     x: "",
-    e: "",
-    s: "",
     n: "",
+    d: "",
+    s: "",
   } as RSAType);
-  const getValue = (label: "x" | "e" | "s" | "n") => {
+  const getValue = (label: "x" | "d" | "s" | "n") => {
     return rsaType[label];
   };
   const [decode, setDecode] = useState("");
+
   const [IsValid, setIsValid] = useState(false);
   const setValue = (label?: any) => (value: any) => {
     setstate({ ...rsaType, [label]: value });
@@ -42,8 +43,8 @@ const CheckSignRSA = () => {
     if (
       rsaType.x &&
       rsaType.x != "" &&
-      rsaType.e &&
-      rsaType.e != "" &&
+      rsaType.d &&
+      rsaType.d != "" &&
       rsaType.n &&
       rsaType.n != "" &&
       rsaType.s &&
@@ -57,16 +58,16 @@ const CheckSignRSA = () => {
   const demo = () => {
     setstate({
       x: "123",
-      e: "17",
-      s: "2746",
-      n: "3233",
+      d: "35024027659280588279410289335328959540490525310193563479849697798494905794152069079021098700277236530207868259529042272216295232448183495829096117553367149",
+      s: "31711825763862161118992654921680949879172173461907529380994591041501909500662071781119806706827276493938418036359399912240974879381641160180718795492112524",
+      n: "39307439113738059328665522437896708363216639290241695988596093778742957868447460580869616903022658452374663818820843300319038335535649400035174564188929741",
     });
     setIsValid(true);
   };
   useEffect(() => {
-    const { x, e, s, n } = rsaType;
-    if (x > 0 && e > 0 && n > 0) {
-      setDecode(bigInt(s).modPow(e, n).toString());
+    const { x, d, s, n } = rsaType;
+    if (x > 0 && d > 0 && n > 0) {
+      setDecode(bigInt(s).modPow(d, n).toString());
     }
   }, [rsaType]);
   const inputValues = [
@@ -77,15 +78,15 @@ const CheckSignRSA = () => {
       type: "number",
     },
     {
-      label: "e",
-      onChange: setValue("e"),
-      placeholder: "Nhập số khóa công khai",
+      label: "d",
+      onChange: setValue("d"),
+      placeholder: "Nhập số khóa công khai d",
       type: "number",
     },
     {
       label: "s",
       onChange: setValue("s"),
-      placeholder: "Nhập chữ ký",
+      placeholder: "Nhập chữ ký s",
       type: "number",
     },
 
@@ -96,6 +97,7 @@ const CheckSignRSA = () => {
       type: "number",
     },
   ] as InputItem[];
+
   return (
     <div className="rsa">
       <div className="input box">
@@ -133,15 +135,24 @@ const CheckSignRSA = () => {
             <h4>Kiểm tra chữ ký</h4> <Divider />
             <div className="item">
               <div className="label text-bold">
-                <TemplateKatex
-                  element={`$s^e \\pmod{n}= 2746^{17} \\pmod{3233} =  ${decode} $`}
-                />
+                <TemplateKatex element={`$s^{d_A} \\pmod{n} =  ${decode}  $`} />
               </div>
             </div>
             <div className="item">
               <div className="label">
-                <TemplateKatex element={"$\\iff$"} />
-                {decode === rsaType.x ? "Chữ ký hợp lệ" : "Chữ ký không hợp lệ"}
+                {bigInt(rsaType.x).mod(bigInt(rsaType.n)).equals(decode) ? (
+                  <TemplateKatex
+                    element={"$\\Harr x \\equiv s^{d_A} \\pmod{n} $"}
+                  />
+                ) : null}
+              </div>
+            </div>
+            <div className="item">
+              <div className="label result">
+                <TemplateKatex element={"$\\Harr$"} />
+                {bigInt(rsaType.x).mod(bigInt(rsaType.n)).equals(decode)
+                  ? " Chữ ký hợp lệ"
+                  : " Chữ ký không hợp lệ"}
               </div>
             </div>
           </div>
