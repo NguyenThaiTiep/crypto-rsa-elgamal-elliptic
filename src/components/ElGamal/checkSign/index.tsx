@@ -171,14 +171,22 @@ const CheckSignElGamal = () => {
               <div className="item">
                 <div className="label text-bold">
                   <TemplateKatex
-                    element={`$(\\beta ^ {s_1}) * (s_1 ^ {s_2}) \\pmod p = ${elGamalType.β} ^{${elGamalType.s1} } * ${elGamalType.s1}^{${elGamalType.s2} } \\pmod {${elGamalType.p} } = ${VT}$`}
+                    element={`$(\\beta ^ {s_1}) * (s_1 ^ {s_2}) \\pmod p $`}
                   />
+                  <TemplateKatex element={`$= ${elGamalType.β} $`} />
+
+                  <TemplateKatex element={`$^{${elGamalType.s1} } $`} />
+                  <TemplateKatex element={`$ * ${elGamalType.s1}$`} />
+
+                  <TemplateKatex element={`$^{${elGamalType.s2} } $`} />
+                  <TemplateKatex element={`$\\pmod {${elGamalType.p} } $`} />
+                  <TemplateKatex element={`$= ${VT}$`} />
                 </div>
               </div>
               <div className="item">
                 <div className="label text-bold">
                   <TemplateKatex
-                    element={`$\\alpha ^ x \\pmod p = ${elGamalType.α} ^{${elGamalType.x}} \\pmod {${elGamalType.p}} = ${VP}$`}
+                    element={`$\\alpha ^ {x} \\pmod p = ${elGamalType.α}^{${elGamalType.x}} \\pmod {${elGamalType.p}} = ${VP}$`}
                   />
                 </div>
               </div>

@@ -45,9 +45,12 @@ const DeCodeElGamal = (props: Props) => {
       <h4>Giải mã</h4> <Divider />
       <div className="item">
         <div className="label text-bold">
-          <TemplateKatex
-            element={`$y ^{-a} \\pmod{p} = γ^{(p-1-a)} \\pmod{p} = γ^{(p-a-1)} \\pmod{p} = ${gama}^{(${p}-${a}-1)} \\pmod{${p}} = ${gamalValue}  $`}
-          />
+          <TemplateKatex element={`$y ^{-a} \\pmod{p}   $`} />
+          <TemplateKatex element={`$ γ^{(p-1-a)} \\pmod{p} = $`} />
+          <TemplateKatex element={`$${gama} $`} />
+          <TemplateKatex element={`$^{(${p}-${a}-1)}    $`} />
+          <TemplateKatex element={`$= \\pmod{${p}}  $`} />
+          <TemplateKatex element={`$= ${gamalValue}  $`} />
         </div>
       </div>
       <div className="item">

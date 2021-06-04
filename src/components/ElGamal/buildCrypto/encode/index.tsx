@@ -22,15 +22,18 @@ const EncodeElGamal = (props: Props) => {
       <h4>Mã hóa bản rõ x = {x}</h4> <Divider />
       <div className="item">
         <div className="label text-bold">
-          <TemplateKatex
-            element={`$γ = \\alpha^k \\pmod{p} = ${α}^{${k}} \\pmod{${p}} = ${gama}$`}
-          />
+          <TemplateKatex element={`$γ = \\alpha^k \\pmod{p}$`} />
+          <TemplateKatex element={`$=$`} />
+          <TemplateKatex element={`$${α}^{${k}} \\pmod{${p}} = ${gama}$`} />
         </div>
+        <div className="value"></div>
       </div>
       <div className="item">
         <div className="label text-bold">
+          <TemplateKatex element={`$δ = x * β^{k} \\pmod{p} $`} />
+          <TemplateKatex element={`$=$`} />
           <TemplateKatex
-            element={`$δ = x * β^{k} \\pmod{p} = ${x} * ${beta}^{${k}} \\pmod{${p}} = ${delta}$`}
+            element={`$${x} * ${beta}^{${k}} \\pmod{${p}} = ${delta}$`}
           />
         </div>
       </div>

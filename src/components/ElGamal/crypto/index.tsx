@@ -145,24 +145,29 @@ const CriptoElGamal = () => {
               <Divider />
               <div className="item">
                 <div className="label">
-                  <TemplateKatex
-                    element={`$γ = α^k \\pmod{p} = ${elGamalType.α}^{${elGamalType.k}} \\pmod {${elGamalType.p}} = ${gamma}  $`}
-                  />
+                  <TemplateKatex element={`$γ = α^k \\pmod{p} =  $`} />
+                  <TemplateKatex element={`$${elGamalType.α}  $`} />
+                  <TemplateKatex element={`$^{${elGamalType.k}}   $`} />
+                  <TemplateKatex element={`$\\pmod {${elGamalType.p}} =  $`} />
+                  <TemplateKatex element={`$ ${gamma}  $`} />
+                </div>
+              </div>
+
+              <div className="item">
+                <div className="label text-bold">
+                  <TemplateKatex element={`$δ = x * β^{k} \\pmod p =$`} />
+                  <TemplateKatex element={`$ ${elGamalType.x} $`} />
+                  <TemplateKatex element={`$* ${elGamalType.β} $`} />
+                  <TemplateKatex element={`$^ {${elGamalType.k}} $`} />
+                  <TemplateKatex element={`$\\pmod {${elGamalType.p}} $`} />
+                  <TemplateKatex element={`$= ${delta}$`} />
                 </div>
               </div>
 
               <div className="item">
                 <div className="label text-bold">
                   <TemplateKatex
-                    element={`$δ = x * β^{k} \\pmod p = ${elGamalType.x} * ${elGamalType.β} ^ {${elGamalType.k}} \\pmod {${elGamalType.p}} = ${delta}$`}
-                  />
-                </div>
-              </div>
-
-              <div className="item">
-                <div className="label text-bold">
-                  <TemplateKatex
-                    element={`$ \\implies (γ,δ) = (${gamma} , ${delta})  $`}
+                    element={`$ \\implies (γ,δ) = (${gamma}$ , $${delta})  $`}
                   />
                 </div>
               </div>

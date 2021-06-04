@@ -22,21 +22,21 @@ const GenarateKeyElGamal = (props: Props) => {
       <Divider />
       <div className="item">
         <div className="label">
-          <TemplateKatex
-            element={`$\\beta = \\alpha^{a} \\mod{p} = ${beta} $`}
-          />
+          <TemplateKatex element={`$\\beta = \\alpha^{a} \\mod{p} : $`} />
         </div>
+        <div className="val">{beta}</div>
       </div>
 
       <div className="item">
         <div className="label text-bold">
-          <TemplateKatex element={`$(p,α,β) = (${p}, ${α}, ${beta}) $`} />
+          <TemplateKatex element={`$K = (p,α,β) :  $`} />
         </div>
+        <div className="value">{`(${p}, ${α}, ${beta})`}</div>
       </div>
 
       <div className="item">
         <div className="label text-bold">
-          <TemplateKatex element={`$  (a) = (${a}) $`} />
+          <TemplateKatex element={`$K'= (a) = (${a}) $`} />
         </div>
       </div>
     </div>
