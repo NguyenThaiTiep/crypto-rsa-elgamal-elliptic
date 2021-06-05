@@ -10,7 +10,7 @@ import { HomePage } from "../pages/home";
 const nameApp = "Nhập môn an toàn thông tin";
 export const routes = [
   {
-    path: "/admin",
+    path: "/crypto-rsa-elgamal-elliptic",
     roleDefine: [],
     public: true,
     component: AdminPage,
@@ -28,7 +28,7 @@ export const RoutesApp = () => {
         <RouteItem key={index} {...route} />
       ))}
 
-      <Redirect to="/admin"></Redirect>
+      <Redirect to="/crypto-rsa-elgamal-elliptic"></Redirect>
     </Switch>
   );
 };

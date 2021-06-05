@@ -15,19 +15,19 @@ import Elliptic from "./outlets/Elliptic";
 
 export const routes = [
   {
-    href: "/admin/rsa",
+    href: "/crypto-rsa-elgamal-elliptic/rsa",
     icon: BarChartIcon,
     title: "Hệ mật RSA",
     component: RSA,
   },
   {
-    href: "/admin/elgamal",
+    href: "/crypto-rsa-elgamal-elliptic/elgamal",
     icon: UserIcon,
     title: "Hệ mật ElGamal",
     component: ElGamal,
   },
   {
-    href: "/admin/elliptic",
+    href: "/crypto-rsa-elgamal-elliptic/elliptic",
     icon: ApartmentIcon,
     title: "Đường cong Elliptic",
     component: Elliptic,
@@ -53,7 +53,10 @@ export const RouteAdmin = () => {
           key={i}
         ></Route>
       ))}
-      <Redirect path="/admin" to="/admin/rsa" />
+      <Redirect
+        path="/crypto-rsa-elgamal-elliptic"
+        to="/crypto-rsa-elgamal-elliptic/rsa"
+      />
     </Switch>
   );
 };

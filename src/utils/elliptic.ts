@@ -32,10 +32,7 @@ export const getPowY = (
       .toString();
 
     let inQ = checkInQ(powYValue, Q, q);
-    if (i == 0) {
-      console.log(powYValue);
-      console.log(inQ);
-    }
+
     Z.push({
       powYValue,
       x: i,
@@ -79,5 +76,102 @@ const checkInQ = (value: any, Q: { qValue: string; y: any }[], q: any) => {
       inQ: false,
     } as any;
     return res;
+  }
+};
+export interface Point {
+  x: any;
+  y: any;
+}
+const isElqual = (point_1: Point, point_2: Point) =>
+  point_2.x === point_1.x && point_1.y === point_2.y;
+export const multiplyPoint = (point: Point, k: any, p: any, a: any) => {
+  let result = point;
+  let i = 1;
+  while (i < k) {
+    if (checkIndentyPoint(result)) {
+      result = point;
+    } else {
+      result = plusPoint(result, point, a, p);
+    }
+
+    i++;
+  }
+  return result;
+};
+export const plusPoint = (point_1: Point, point_2: Point, a: any, p: any) => {
+  let lamda;
+  if (checkIndentyPoint(point_1)) {
+    return point_2;
+  }
+  if (checkIndentyPoint(point_2)) {
+    return point_1;
+  }
+  try {
+    if (isElqual(point_1, point_2)) {
+      let tu_so = bigInt(point_1.x).pow(2).multiply(3).add(a).mod(p);
+      if (tu_so.lesser(0)) {
+        tu_so = tu_so.add(p);
+      }
+      let mau_so = bigInt(point_1.y).multiply(2).modInv(p);
+      if (mau_so.lesser(0)) {
+        mau_so = mau_so.add(p);
+      }
+
+      lamda = bigInt(bigInt(tu_so).multiply(bigInt(mau_so))).mod(p);
+      if (lamda.lesser(0)) {
+        lamda = lamda.add(p);
+      }
+    } else {
+      if (point_1.x === point_2.x) {
+        return { x: null, y: null };
+      }
+      let tu_so = bigInt(point_2.y).minus(point_1.y).mod(p);
+      if (tu_so.lesser(0)) {
+        tu_so = tu_so.add(p);
+      }
+      let mau_so = bigInt(point_2.x).minus(point_1.x).modInv(p);
+      if (mau_so.lesser(0)) {
+        mau_so = mau_so.add(p);
+      }
+      lamda = bigInt(bigInt(tu_so).multiply(bigInt(mau_so))).mod(p);
+      if (lamda.lesser(0)) {
+        lamda = lamda.add(p);
+      }
+    }
+    let x = lamda.pow(2).minus(point_1.x).minus(point_2.x).mod(p);
+    if (x.lesser(0)) {
+      x = x.add(p);
+    }
+
+    let y = lamda.multiply(bigInt(point_1.x).minus(x)).minus(point_1.y).mod(p);
+    if (y.lesser(0)) {
+      y = y.add(p);
+    }
+
+    return {
+      x: x.toString(),
+      y: y.toString(),
+    };
+  } catch (e) {
+    return {
+      x: null,
+      y: null,
+    };
+  }
+};
+const checkIndentyPoint = (point: Point) =>
+  point.x === null && point.y === null;
+export const getK = (point: Point, point_A: Point, p: any, a: any) => {
+  if (isElqual(point, point_A)) {
+    return 1;
+  } else {
+    let k = 1;
+    let point_temp = point_A;
+
+    while (k < p && !isElqual(point, point_temp)) {
+      k++;
+      point_temp = multiplyPoint(point_A, k, p, a);
+    }
+    return k;
   }
 };
